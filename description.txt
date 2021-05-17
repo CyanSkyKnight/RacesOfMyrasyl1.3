@@ -1,0 +1,6 @@
+Races of Myrasyl is an addon for Mr. Plague's Authentic Races.
+Current in-development races:
+Saturnians: Wizard moth people.
+Shelsnel: Snail people.
+Kyterran: Mining Warrior Antlions
+Scyphojel: Alien jellyfish people.
