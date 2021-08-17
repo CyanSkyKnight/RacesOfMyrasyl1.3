@@ -12,6 +12,9 @@ namespace RacesofMyrasyl.Common.Races.Shelsnels
 
     public class Shelsnel : Race
     {
+		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Hallow_Underground");
+		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
+		public override string RaceEnvironmentOverlay2Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
 		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelSelect");
 		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelDisplayMale");
 		public override string RaceDisplayFemaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelDisplayFemale");

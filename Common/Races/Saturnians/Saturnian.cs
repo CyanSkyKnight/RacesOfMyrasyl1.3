@@ -12,6 +12,9 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 
     public class Saturnian : Race
     {
+		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Sky");
+		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/EnvironmentOverlay_Sun");
+		public override string RaceEnvironmentOverlay2Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
 		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianSelect");
 		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianDisplayMale");
 		public override string RaceDisplayFemaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianDisplayFemale");
@@ -21,6 +24,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		public override string RaceAbilityName => "Enchanted Wing Dust";
 		public override string RaceAbilityDescription1  => "Holding down [c/34EB93:Jump] slows your fall as if you had wings.";
 		public override string RaceAdditionalNotesDescription1 => "-Immune to fall damage.";
+		public override string RaceAdditionalNotesDescription2 => "-Gains extra flight time when using wings.";
 		public override void ModifyDrawInfo (Player player, Mod mod, ref PlayerDrawInfo drawInfo)
         {
 			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
@@ -29,10 +33,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 			
 			Item familiarpants = new Item();
 			familiarpants.SetDefaults(ItemID.FamiliarPants);
-			
-			Item saturniancape = new Item();
-			saturniancape.SetDefaults(ItemID.MysteriousCape);
-			
+		
 			if (modPlayer.resetDefaultColors)
             {
 				modPlayer.resetDefaultColors = false;
@@ -47,7 +48,6 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				{
 					player.armor[1] = familiarshirt;
 					player.armor[2] = familiarpants;
-					player.armor[13] = saturniancape;
 				}
 
 			}
@@ -60,8 +60,6 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		public override string RaceDefenseDisplayText => "[c/FF4F64:-4]";
 		public override string RaceMagicDamageDisplayText => "[c/34EB93:+15%]";
 		public override string RaceManaCostDisplayText => "[c/34EB93:-10%]";
-		public override string RaceMinionsDisplayText => "[c/34EB93:+1]";
-		public override string RaceSummonDamageDisplayText => "[c/34EB93:+10%]";
 
 		//race environment info (CURRENTLY COSMETIC)
 		public override string RaceGoodBiomesDisplayText => "Forest, The Hallow";
@@ -80,10 +78,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				player.wingTimeMax += 100;
 				player.statManaMax2 += 25;
 				player.statDefense -= 4;
-				player.magicDamage += 0.10f;
+				player.magicDamage += 0.15f;
 				player.manaCost -= 0.1f;
-				player.maxMinions += 1;
-				player.minionDamage += 0.10f;
 				player.noFallDmg = true;
 				
 				if ((player.wingsLogic == 0) && player.velocity.Y != 0)
@@ -772,9 +768,9 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 
 			Main.playerHairTexture[0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_1");
 			Main.playerHairTexture[1] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
-			Main.playerHairTexture[2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_Long_1");
-			Main.playerHairTexture[3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_Long");
-			Main.playerHairTexture[4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
+			Main.playerHairTexture[2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_3");
+			Main.playerHairTexture[3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_4");
+			Main.playerHairTexture[4] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_5");
 			Main.playerHairTexture[5] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			Main.playerHairTexture[6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			Main.playerHairTexture[7] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
