@@ -5,11 +5,11 @@ using Terraria.ID;
 namespace RacesofMyrasyl.Items
 {
 	[AutoloadEquip(EquipType.Wings)]
-	public class DimMothronWings : ModItem
+	public class MothWings : ModItem
 	{
 
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("Mothron wings that don't glow. Also known as 'Mothroff' wings.");
+			Tooltip.SetDefault("'Magical wings for those that never developed any.'");
 		}
 
 		public override void SetDefaults() {
@@ -38,7 +38,7 @@ namespace RacesofMyrasyl.Items
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Silk, 10);
+			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddTile(TileID.Loom);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

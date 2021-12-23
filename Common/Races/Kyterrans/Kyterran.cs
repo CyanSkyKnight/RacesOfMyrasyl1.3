@@ -9,21 +9,21 @@ using MrPlagueRaces.Common.Races;
 using RacesofMyrasyl.Sounds;
 
 
-namespace RacesofMyrasyl.Common.Races.Saturnians
+namespace RacesofMyrasyl.Common.Races.Kyterrans
 {
 
-    public class Saturnian : Race
+    public class Kyterran : Race
     {
 		public override bool UsesCustomHurtSound => true;
         public override bool UsesCustomDeathSound => true;
 		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Sky");
 		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/EnvironmentOverlay_Sun");
 		public override string RaceEnvironmentOverlay2Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
-		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianSelect");
-		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianDisplayMale");
-		public override string RaceDisplayFemaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianDisplayFemale");
+		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/KyterranSelect");
+		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/KyterranDisplayMale");
+		public override string RaceDisplayFemaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/KyterranDisplayFemale");
 		public override string RaceLore1 => "A moth species that" + "\nlives in sky cities" + "\nabove Myrasyl." + "\nVery fluffy.";
-		public override string RaceLore2 => "Most Saturnians are from the city" + "\nSolalei. They practice a form of" + "\nlight manipulating magic." + "\n";
+		public override string RaceLore2 => "Most Kyterrans are from the city" + "\nSolalei. They practice a form of" + "\nlight manipulating magic." + "\n";
 		
 		public override string RaceAbilityName => "Enchanted Wing Dust";
 		public override string RaceAbilityDescription1  => "Holding down [c/34EB93:Jump] slows your fall as if you had wings.";
@@ -39,7 +39,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
         {
 			//death sound
 			var RacesofMyrasyl = ModLoader.GetMod("RacesofMyrasyl");
-			Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, RacesofMyrasyl.GetSoundSlot(SoundType.Custom, "Sounds/Saturnian_Killed"));
+			Main.PlaySound(SoundLoader.customSoundType, (int)player.Center.X, (int)player.Center.Y, RacesofMyrasyl.GetSoundSlot(SoundType.Custom, "Sounds/Kyterran_Killed"));
             return true;
         }		
 
@@ -82,8 +82,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		public override string RaceManaCostDisplayText => "[c/34EB93:-10%]";
 
 		//race environment info (CURRENTLY COSMETIC)
-		public override string RaceGoodBiomesDisplayText => "Forest, The Hallow";
-		public override string RaceBadBiomesDisplayText => "The Corruption, Spider Cave";
+		public override string RaceGoodBiomesDisplayText => "Underground, Underground Desert";
+		public override string RaceBadBiomesDisplayText => "Snow";
 		
 
 		public override void ProcessTriggers(Player player, Mod mod)
@@ -110,27 +110,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
 			if (modPlayer.RaceStats)
 			{
-				player.wingTimeMax += 100;
 				player.statManaMax2 += 25;
-				player.statDefense -= 4;
+				player.statDefense += 2;
 				player.magicDamage += 0.15f;
 				player.manaCost -= 0.1f;
-				player.noFallDmg = true;
-				
-				if ((player.wingsLogic == 0) && player.velocity.Y != 0)
-				{
-					if (player.controlJump)
-					{
-						if (player.velocity.Y != 0)
-						{
-							if (!(player.velocity.Y < 2))
-							{
-								player.velocity.Y -= 1;
-								player.moveSpeed += 1f;
-							}
-						}
-					}
-				}
 			}
 		}
 		public override void PreUpdate(Player player, Mod mod)
@@ -167,29 +150,29 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 			bool hideLeggings = modPlayer.hideLeggings;
 			
 		//{ 0 male OG shirt
-			Main.playerTextures[0, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head");
-			Main.playerTextures[0, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[0, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[0, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso");
+			Main.playerTextures[0, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head");
+			Main.playerTextures[0, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[0, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[0, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{ Main.playerTextures[0, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Sleeves_1"); } else
 			{ Main.playerTextures[0, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank"); }
 
-			Main.playerTextures[0, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands");
+			Main.playerTextures[0, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{ Main.playerTextures[0, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Shirt_1"); } else
 			{ Main.playerTextures[0, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank"); }
 
-			Main.playerTextures[0, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm");
+			Main.playerTextures[0, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{ Main.playerTextures[0, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Sleeve_1"); } else
 			{ Main.playerTextures[0, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank"); }
 
-			Main.playerTextures[0, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand");
-			Main.playerTextures[0, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs");
+			Main.playerTextures[0, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand");
+			Main.playerTextures[0, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{ Main.playerTextures[0, 11] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Pants_1"); Main.playerTextures[0, 12] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Shoes_1"); } else
@@ -204,10 +187,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 
 		//{ 1 male skull shirt
-			Main.playerTextures[1, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head");
-			Main.playerTextures[1, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[1, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_EyesB");
-			Main.playerTextures[1, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso");
+			Main.playerTextures[1, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head");
+			Main.playerTextures[1, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[1, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_EyesB");
+			Main.playerTextures[1, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -218,7 +201,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[1, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[1, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands");
+			Main.playerTextures[1, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -229,7 +212,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[1, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[1, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm");
+			Main.playerTextures[1, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -240,8 +223,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[1, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[1, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand");
-			Main.playerTextures[1, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs");
+			Main.playerTextures[1, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand");
+			Main.playerTextures[1, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -272,10 +255,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 2 male shirt with bracelet
-			Main.playerTextures[2, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head");
-			Main.playerTextures[2, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[2, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[2, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso");
+			Main.playerTextures[2, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head");
+			Main.playerTextures[2, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[2, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[2, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -286,7 +269,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[2, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[2, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands");
+			Main.playerTextures[2, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -297,7 +280,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[2, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[2, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm");
+			Main.playerTextures[2, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -308,8 +291,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[2, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[2, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand");
-			Main.playerTextures[2, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs");
+			Main.playerTextures[2, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand");
+			Main.playerTextures[2, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -340,10 +323,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 3 male coat/robe
-			Main.playerTextures[3, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head");
-			Main.playerTextures[3, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[3, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[3, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso");
+			Main.playerTextures[3, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head");
+			Main.playerTextures[3, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[3, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[3, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -354,7 +337,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[3, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[3, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands");
+			Main.playerTextures[3, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -365,7 +348,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[3, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[3, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm");
+			Main.playerTextures[3, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -376,8 +359,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[3, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[3, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand");
-			Main.playerTextures[3, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs");
+			Main.playerTextures[3, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand");
+			Main.playerTextures[3, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -408,10 +391,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 8 male kimono
-			Main.playerTextures[8, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head");
-			Main.playerTextures[8, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[8, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_EyesB");
-			Main.playerTextures[8, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso");
+			Main.playerTextures[8, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head");
+			Main.playerTextures[8, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[8, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_EyesB");
+			Main.playerTextures[8, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -422,7 +405,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[8, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[8, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands");
+			Main.playerTextures[8, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -433,7 +416,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[8, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[8, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm");
+			Main.playerTextures[8, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -444,8 +427,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[8, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[8, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand");
-			Main.playerTextures[8, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs");
+			Main.playerTextures[8, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand");
+			Main.playerTextures[8, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -478,10 +461,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		
 		
 		//{ 4 female shorts
-			Main.playerTextures[4, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head_Female");
-			Main.playerTextures[4, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[4, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[4, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso_Female");
+			Main.playerTextures[4, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head_Female");
+			Main.playerTextures[4, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[4, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[4, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -492,7 +475,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[4, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[4, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands_Female");
+			Main.playerTextures[4, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -503,7 +486,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[4, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[4, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm_Female");
+			Main.playerTextures[4, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -514,8 +497,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[4, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[4, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand_Female");
-			Main.playerTextures[4, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs_Female");
+			Main.playerTextures[4, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand_Female");
+			Main.playerTextures[4, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs_Female");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -546,10 +529,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 5 female heart shirt
-			Main.playerTextures[5, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head_Female");
-			Main.playerTextures[5, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[5, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_EyesB");
-			Main.playerTextures[5, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso_Female");
+			Main.playerTextures[5, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head_Female");
+			Main.playerTextures[5, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[5, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_EyesB");
+			Main.playerTextures[5, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -560,7 +543,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[5, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[5, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands_Female");
+			Main.playerTextures[5, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -571,7 +554,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[5, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[5, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm_Female");
+			Main.playerTextures[5, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -582,8 +565,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[5, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[5, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand_Female");
-			Main.playerTextures[5, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs_Female");
+			Main.playerTextures[5, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand_Female");
+			Main.playerTextures[5, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs_Female");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -614,10 +597,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 6 female shirt with bracelet
-			Main.playerTextures[6, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head_Female");
-			Main.playerTextures[6, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[6, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[6, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso_Female");
+			Main.playerTextures[6, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head_Female");
+			Main.playerTextures[6, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[6, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[6, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -628,7 +611,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[6, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[6, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands_Female");
+			Main.playerTextures[6, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -639,7 +622,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[6, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[6, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm_Female");
+			Main.playerTextures[6, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -650,8 +633,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[6, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[6, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand_Female");
-			Main.playerTextures[6, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs_Female");
+			Main.playerTextures[6, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand_Female");
+			Main.playerTextures[6, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs_Female");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -682,10 +665,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 7 female coat/robe
-			Main.playerTextures[7, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head_Female");
-			Main.playerTextures[7, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[7, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes");
-			Main.playerTextures[7, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso_Female");
+			Main.playerTextures[7, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head_Female");
+			Main.playerTextures[7, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[7, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes");
+			Main.playerTextures[7, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -696,7 +679,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[7, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[7, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands_Female");
+			Main.playerTextures[7, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -707,7 +690,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[7, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[7, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm_Female");
+			Main.playerTextures[7, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -718,8 +701,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[7, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[7, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand_Female");
-			Main.playerTextures[7, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs_Female");
+			Main.playerTextures[7, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand_Female");
+			Main.playerTextures[7, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs_Female");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -750,10 +733,10 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 		
 		//{ 9 female heart dress
-			Main.playerTextures[9, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Head_Female");
-			Main.playerTextures[9, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Eyes_2");
-			Main.playerTextures[9, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_EyesB");
-			Main.playerTextures[9, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Torso_Female");
+			Main.playerTextures[9, 0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Head_Female");
+			Main.playerTextures[9, 1] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Eyes_2");
+			Main.playerTextures[9, 2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_EyesB");
+			Main.playerTextures[9, 3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Torso_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -764,7 +747,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[9, 4] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[9, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hands_Female");
+			Main.playerTextures[9, 5] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hands_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -775,7 +758,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[9, 6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[9, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Arm_Female");
+			Main.playerTextures[9, 7] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Arm_Female");
 
 			if ((player.armor[1].type == ItemID.FamiliarShirt || player.armor[11].type == ItemID.FamiliarShirt) && !hideChestplate)
 			{
@@ -786,8 +769,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 				Main.playerTextures[9, 8] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			}
 
-			Main.playerTextures[9, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Hand_Female");
-			Main.playerTextures[9, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Legs_Female");
+			Main.playerTextures[9, 9] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Hand_Female");
+			Main.playerTextures[9, 10] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Legs_Female");
 
 			if ((player.armor[2].type == ItemID.FamiliarPants || player.armor[12].type == ItemID.FamiliarPants) && !hideLeggings)
 			{
@@ -818,11 +801,11 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		//}
 
 
-			Main.playerHairTexture[0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_1");
+			Main.playerHairTexture[0] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Hair/Kyterran_Hair_1");
 			Main.playerHairTexture[1] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
-			Main.playerHairTexture[2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_3");
-			Main.playerHairTexture[3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_4");
-			Main.playerHairTexture[4] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Hair/Saturnian_Hair_5");
+			Main.playerHairTexture[2] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Hair/Kyterran_Hair_3");
+			Main.playerHairTexture[3] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Hair/Kyterran_Hair_4");
+			Main.playerHairTexture[4] = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Hair/Kyterran_Hair_5");
 			Main.playerHairTexture[5] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			Main.playerHairTexture[6] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			Main.playerHairTexture[7] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
@@ -1089,7 +1072,7 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 			Main.playerHairAltTexture[132] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 			Main.playerHairAltTexture[133] = ModContent.GetTexture("MrPlagueRaces/Content/RaceTextures/Blank");
 
-			Main.ghostTexture = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Saturnian/Saturnian_Ghost");
+			Main.ghostTexture = ModContent.GetTexture("RacesofMyrasyl/Content/RaceTextures/Kyterran/Kyterran_Ghost");
 		}
 
 		/*
