@@ -12,14 +12,15 @@ namespace RacesofMyrasyl.Common.Races.Shelsnels
 
     public class Shelsnel : Race
     {
-		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Hallow_Underground");
-		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
+		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Hallow");
+		public override string RaceEnvironmentOverlay1Icon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/Environment/EnvironmentOverlay_CSKLightRain");
 		public override string RaceEnvironmentOverlay2Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
 		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelSelect");
 		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelDisplayMale");
 		public override string RaceDisplayFemaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/ShelsnelDisplayFemale");
-		public override string RaceLore1 => "snail" + "\n" + "\n" + "\n";
-		public override string RaceLore2 => "" + "\n" + "\n" + "\n";
+		public override string RaceLore1 => "Snail people that" + "\nlive in tidepools" + "\neast of Solalei" + "\nThey dislike conflict.";
+		public override string RaceLore2 => "They excel at defending" + "\nothers, and can easily" + "\nspot flaws in enemies" + "\ndefenses.";
+		public override string RaceAdditionalNotesDescription1 => "-Takes no knockback";
 		public override void ModifyDrawInfo (Player player, Mod mod, ref PlayerDrawInfo drawInfo)
         {
 			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
@@ -39,10 +40,12 @@ namespace RacesofMyrasyl.Common.Races.Shelsnels
 
 		//stat info for the UI's stat display. 34EB93 is the green text, FF4F64 is the red text
 
-		public override string RaceManaDisplayText => "[c/34EB93:+25%]";
-		public override string RaceDefenseDisplayText => "[c/FF4F64:-4]";
-		public override string RaceMagicDamageDisplayText => "[c/34EB93:+10%]";
-		public override string RaceManaCostDisplayText => "[c/34EB93:-10%]";
+		public override string RaceAllDamageDisplayText => "[c/FF4F64:-20%]";
+		public override string RaceDefenseDisplayText => "[c/34EB93:+10]";
+		public override string RaceArmorPenetrationDisplayText => "[c/34EB93:+5]";
+		public override string RaceBuildingSpeedDisplayText => "[c/34EB93:+20%]";
+		public override string RaceBuildingWallSpeedDisplayText => "[c/34EB93:+20%]";
+		public override string RaceAggroDisplayText => "[c/34EB93:+5]";
 
 		//race environment info (CURRENTLY COSMETIC)
 		public override string RaceGoodBiomesDisplayText => "Ocean, The Hallow";
@@ -57,20 +60,13 @@ namespace RacesofMyrasyl.Common.Races.Shelsnels
 			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
 			if (modPlayer.RaceStats)
 			{
-				player.statManaMax2 += (player.statManaMax2 / 4);
-				player.statDefense -= 4;
-				player.magicDamage += 0.1f;
-				player.manaCost -= 0.1f;
-			}
-		}
-
-
-		public override void PostItemCheck(Player player, Mod mod)
-		{
-			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
-			if (!modPlayer.GotRaceItems)
-			{
-				player.QuickSpawnItem(mod.ItemType("Merfolk_Water_Generator"));
+                player.statDefense += 10;
+                player.armorPenetration += 5;
+                player.tileSpeed += 0.2f;
+                player.wallSpeed += 0.2f;
+                player.allDamage -= 0.20f;
+                player.aggro += 5;
+                player.noKnockback = true;
 			}
 		}
 

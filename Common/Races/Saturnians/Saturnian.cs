@@ -16,8 +16,8 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
     {
 		public override bool UsesCustomHurtSound => true;
         public override bool UsesCustomDeathSound => true;
-		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Sky");
-		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/EnvironmentOverlay_Sun");
+		public override string RaceEnvironmentIcon => ($"MrPlagueRaces/Common/UI/RaceDisplay/Environment/Environment_Hallow_Underground");
+		public override string RaceEnvironmentOverlay1Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
 		public override string RaceEnvironmentOverlay2Icon => ($"MrPlagueRaces/Common/UI/RaceDisplay/BlankDisplay");
 		public override string RaceSelectIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianSelect");
 		public override string RaceDisplayMaleIcon => ($"RacesofMyrasyl/Common/UI/RaceDisplay/SaturnianDisplayMale");
@@ -85,22 +85,6 @@ namespace RacesofMyrasyl.Common.Races.Saturnians
 		public override string RaceGoodBiomesDisplayText => "Forest, The Hallow";
 		public override string RaceBadBiomesDisplayText => "The Corruption, Spider Cave";
 		
-
-		public override void ProcessTriggers(Player player, Mod mod)
-		{
-			var modPlayer = player.GetModPlayer<MrPlagueRaces.MrPlagueRacesPlayer>();
-			if (modPlayer.RaceStats)
-			{
-				if (MrPlagueRaces.MrPlagueRaces.RacialAbilityHotKey.Current && !player.dead)
-				{
-					if (!player.HasBuff(195) && !player.HasBuff(74))
-					{
-					player.AddBuff(74, 6000);
-					player.AddBuff(195, 1000);
-					}
-				}
-			}
-		}
 		//things that affect the player's stats should be put in ResetEffects
 		public override void ResetEffects(Player player)
 		{
