@@ -9,7 +9,7 @@ namespace RacesofMyrasyl.Items
 	{
 
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("'Has a fast air speed, but can't fly very high.'");
+			Tooltip.SetDefault("'It's not a butterfly!'");
 		}
 
 		public override void SetDefaults() {
@@ -17,11 +17,14 @@ namespace RacesofMyrasyl.Items
 			item.height = 20;
 			item.value = 10000;
 			item.rare = ItemRarityID.Cyan;
+			item.vanity = true;
 			item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual) {
-			player.wingTimeMax = 80;
+			player.wingTimeMax = 0;
+			player.wings = 0;
+            player.wingsLogic = 0;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -29,19 +32,14 @@ namespace RacesofMyrasyl.Items
 			ascentWhenFalling = 0.85f;
 			ascentWhenRising = 0.15f;
 			maxCanAscendMultiplier = 1f;
-			maxAscentMultiplier = 1.5f;
-			constantAscend = 0.135f;
-		}
-		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration) {
-			speed = 7f;
-			acceleration *= 2.5f;
+			maxAscentMultiplier = 1f;
+			constantAscend = 0f;
 		}
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(575, 20);
-			recipe.AddIngredient(ItemID.ButterflyDust, 1);
-			recipe.AddTile(134);
+			recipe.AddIngredient(ItemID.Silk, 5);
+			recipe.AddTile(TileID.Loom);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
