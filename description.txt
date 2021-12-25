@@ -1,6 +1,8 @@
 Races of Myrasyl is an addon for Mr. Plague's Authentic Races.
 Current in-development races:
-Saturnians: Wizard moth people.
-Shelsnel: Snail people.
+Saturnians: Wizard moth people. They're based on my Starbound mod, and get bonuses to magic and summoning, as well as a slow fall ability.
+Shelsnel: Snail people with high defense. They don't like fighting, but do their best to defend others.
+
+Planned for the future:
 Kyterrans: Mining Warrior Antlions
 Scyphojel: Alien jellyfish people.
