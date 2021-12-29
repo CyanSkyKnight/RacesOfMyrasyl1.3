@@ -1,4 +1,4 @@
 displayName = Races of Myrasyl
 author = Cyan Sky Knight
-version = 0.1.1
+version = 0.1.2
 modReferences = MrPlagueRaces
